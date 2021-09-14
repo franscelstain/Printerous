@@ -7,27 +7,27 @@
     </div>
     <div class="card-body pt-3">
         <div class="form-group row mb-0">
-            <label class="col-form-label col-lg-1">Name</label>
+            <label class="col-form-label col-lg-1 font-weight-semibold">Name</label>
             <div class="col-lg-3">
                 <div class="form-control-plaintext">{{ $dt->org_name ?? '-' }}</div>
             </div>
-            <label class="col-form-label col-lg-1">Email</label>
+            <label class="col-form-label col-lg-1 font-weight-semibold">Email</label>
             <div class="col-lg-4">
                 <div class="form-control-plaintext">{{ $dt->email ?? '-' }}</div>
             </div>
         </div>
         <div class="form-group row mb-0">
-            <label class="col-form-label col-lg-1">Phone</label>
+            <label class="col-form-label col-lg-1 font-weight-semibold">Phone</label>
             <div class="col-lg-3">
                 <div class="form-control-plaintext">{{ $dt->phone ?? '-' }}</div>
             </div>
-            <label class="col-form-label col-lg-1">Website</label>
+            <label class="col-form-label col-lg-1 font-weight-semibold">Website</label>
             <div class="col-lg-4">
                 <div class="form-control-plaintext">{{ $dt->website ?? '-' }}</div>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-form-label col-lg-1">Logo</label>    
+            <label class="col-form-label col-lg-1 font-weight-semibold">Logo</label>    
             <div class="col-lg-3">                
                 <div class="media mt-0">
                     <div class="mr-2">
@@ -37,6 +37,7 @@
                 </div>
             </div>
         </div>
+        <p class="font-weight-semibold">Person</p>
         <table class="table table-striped border">
             <thead>
                 <tr>
@@ -47,7 +48,7 @@
                 </tr>
             </thead>
             <tbody>
-                @if (!empty($person))
+                @if ($person->count() > 0)
                     @php $no = 1; @endphp
                     @foreach ($person as $p)
                         <tr>
@@ -67,6 +68,8 @@
                             <td>{{ $p->phone }}</td>
                         </tr>
                     @endforeach
+                @else
+                    <tr><td class="text-center" colspan="4">No Data</td></tr>
                 @endif
             </tbody>
         </table>
