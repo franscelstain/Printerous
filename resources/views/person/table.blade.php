@@ -41,12 +41,14 @@
                         <td>{{ $dt->email }}</td>
                         <td>{{ $dt->phone }}</td>
                         <td class="d-flex">
+                            @if (Auth::user()->user_type == 'Admin' || $dt->account_manager_id == Auth::id())
                             <a href="{{ url('person/'. $dt->id .'/edit') }}" class="btn btn-icon" data-popup="tooltip" data-original-title="Edit">
                                 <i class="icon-pencil7 text-primary"></i>
                             </a>
                             <a href="javascript:;" class="btn btn-icon" onClick="delete_data(this)" data-popup="tooltip" data-original-title="Delete" data-method="person" data-id="{{ $dt->id }}">
                                 <i class="icon-trash text-danger"></i>
                             </a>
+                            @endif
                             <a href="{{ url('person/'. $dt->id) }}" class="btn btn-icon" data-popup="tooltip" data-original-title="View">
                                 <i class="icon-eye2"></i>
                             </a>

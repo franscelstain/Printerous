@@ -7,6 +7,7 @@ use App\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 use Session;
 
 class PersonsController extends Controller
@@ -28,7 +29,7 @@ class PersonsController extends Controller
      */
     public function index()
     {
-        $data = Person::select('persons.*', 'b.org_name')->join('organizations as b', 'persons.org_id', 'b.id')->get();
+        $data = Person::select('persons.*', 'b.org_name', 'b.account_manager_id')->join('organizations as b', 'persons.org_id', 'b.id')->get();
         return view('person.table', ['data' => $data]);
     }
 
@@ -103,6 +104,13 @@ class PersonsController extends Controller
 
     public function form_ele($act, $data = [])
     {
+        if (!empty($data->id) && Auth::user()->user_type != 'Admin')
+        {
+            $org = Organization::find($data->org_id);
+            if (empty($org) || Auth::user()->id != $org->account_manager_id)
+                return redirect('person');
+        }
+
         return view('person.form', [
             'act'   => $act, 
             'dt'    => \Session::has('_old_input') ? (object) Session::get('_old_input') : $data,
