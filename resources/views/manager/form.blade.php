@@ -17,8 +17,8 @@
                     <input type="text" class="form-control" name="name" value="{{ $dt->name ?? '' }}" required />
                 </div>
                 <div class="col-lg-6">
-                    <label>Organization</label>
-                    <select class="form-control form-control-select2" name="org_id" required>
+                    <label>Organization <small>(optional)</small></label>
+                    <select class="form-control form-control-select2" name="org_id">
                         <option value=""></option>
                         @if (!empty($org))
                             @foreach ($org as $o)

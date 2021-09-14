@@ -7,6 +7,7 @@ use App\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 use Session;
 
 class OrganizationsController extends Controller
@@ -103,6 +104,9 @@ class OrganizationsController extends Controller
 
     public function form_ele($act, $data = [])
     {
+        if (!empty($data->id) && Auth::user()->user_type != 'Admin' && Auth::user()->id != $data->account_manager_id)
+            return redirect('organization');
+            
         return view('organization.form', [
             'act'   => $act, 
             'dt'    => \Session::has('_old_input') ? (object) Session::get('_old_input') : $data
