@@ -122,7 +122,8 @@ class OrganizationsController extends Controller
         }
 
         $act    = empty($org->id) ? 'created' : 'updated';
-        $data   = ['org_name' => $request->org_name, 'email' => $request->email, 'phone' => $request->phone, 'website' => $request->website];
+        $amg_id = $act == 'created' && Auth::user()->user_type == 'Account Manager' ? ['account_manager_id' => Auth::id()] : [];
+        $data   = array_merge(['org_name' => $request->org_name, 'email' => $request->email, 'phone' => $request->phone, 'website' => $request->website], $amg_id);
         $save   = empty($org->id) ? Organization::create($data) : Organization::where('id', $org->id)->update($data);
         $id     = !empty($org->id) ? $org->id : $save->id;
         if ($request->hasFile('logo'))
