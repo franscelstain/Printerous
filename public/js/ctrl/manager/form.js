@@ -1,4 +1,4 @@
-var FormPerson = function() {
+var FormManager = function() {
     var swalInit = swal.mixin({
         buttonsStyling: false,
         confirmButtonClass: 'btn btn-primary',
@@ -18,17 +18,6 @@ var FormPerson = function() {
             placeholder: '-- Please select --'
         });
     };
-
-	var _componentUniform = function() {
-	    if (!$().uniform) {
-	        console.warn('Warning - uniform.min.js is not loaded.');
-	        return;
-	    }
-        
-        $('.form-input-styled').uniform({
-            fileButtonClass: 'action btn btn-light'
-        });
-	}
 
     var _componentValidation = function() {
         if (!$().validate) {
@@ -75,12 +64,11 @@ var FormPerson = function() {
     return {
         init: function() {
             _componentSelect2();
-            _componentUniform();
             _componentValidation();
         }
     }
 }();
 
 document.addEventListener('DOMContentLoaded', function() {
-    FormPerson.init();
+    FormManager.init();
 })
